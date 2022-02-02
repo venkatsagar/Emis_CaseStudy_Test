@@ -69,7 +69,7 @@ object ComplexJson_Obj {
     //Output DataFrame After Flattening
     flattendedJSON.show(false)
 
-    //Writing into CSV File
+    //Writing into Parquet File
 
     flattendedJSON.write.format("parquet ").save("C:/emis_cs_parquet")
 
