@@ -46,8 +46,6 @@ object ComplexJson_Obj {
             val fieldNamesExcludingArray = fieldNames.filter(_!=fieldName)
             val fieldNamesAndExplode = fieldNamesExcludingArray ++ Array(s"explode_outer($fieldName) as $fieldName")
 
-            // val fieldNamesToSelect = (fieldNamesExcludingArray ++ Array(s"$fieldName.*"))
-
             val explodedDf = df.selectExpr(fieldNamesAndExplode:_*)
             return flattenDataframe(explodedDf)
           case structType: StructType =>
