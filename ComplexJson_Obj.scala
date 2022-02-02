@@ -16,6 +16,7 @@ object ComplexJson_Obj {
     spark.sparkContext.setLogLevel("ERROR")
 
     //Code Block 1 Starts Here
+    
     val json_file_path ="C://exa-data-eng-assessment-main//data"
     val json_data_df = spark.read.
       option("inferSchema",value = true).
@@ -44,7 +45,9 @@ object ComplexJson_Obj {
           case arrayType: ArrayType =>
             val fieldNamesExcludingArray = fieldNames.filter(_!=fieldName)
             val fieldNamesAndExplode = fieldNamesExcludingArray ++ Array(s"explode_outer($fieldName) as $fieldName")
+          
             // val fieldNamesToSelect = (fieldNamesExcludingArray ++ Array(s"$fieldName.*"))
+          
             val explodedDf = df.selectExpr(fieldNamesAndExplode:_*)
             return flattenDataframe(explodedDf)
           case structType: StructType =>
@@ -60,11 +63,16 @@ object ComplexJson_Obj {
     }
 
     val flattendedJSON = flattenDataframe(json_data_df)
+    
     //schema of the JSON after Flattening
+    
     flattendedJSON.schema
 
     //Output DataFrame After Flattening
+    
     flattendedJSON.show(false)
+    
+    //writing into CSV
 
     flattendedJSON.write.format("csv").save("C:/emis_cs_csv")
 
