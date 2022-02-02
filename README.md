@@ -7,6 +7,8 @@ IDE: Intellij
 
 Spark Version: 2.3.1
 
+Programming Language:
+
 Scala Version: 2.11
 
 Note:
